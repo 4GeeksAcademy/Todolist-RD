@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Todos from './Todos';
 
 const Home = () => {
- const [currentValue, setValue] = useState("");
 
 	return (
 		<div className="d-flex justify-content-center align-items-center vh-100 bg-light">

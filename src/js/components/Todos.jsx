@@ -2,37 +2,55 @@ import React, { useState } from "react";
 
 const Todos = () => {
   const [tasks, setTasks] = useState([]);
-  const [input, setInput] = useState(""); 
+  const [input, setInput] = useState("");
 
-  const handleKeyUp = (e) => {
+  const handleKeyUp = (e) => { 
     if (e.key === "Enter" && input.trim() !== "") {
-      setTasks(tasks.concat({ label: input.trim(), done: false }));
-      setInput(""); 
+      setTasks([...tasks, { label: input.trim() }]);
+      setInput("");
     }
   };
 
+  const deleteTask = (indexToDelete) => {
+    const newTasks = [];
+
+    for (let i = 0; i < tasks.length; i++) {
+      if (i !== indexToDelete) {
+        newTasks.push(tasks[i]);
+      }
+     
+    }
+
+    setTasks(newTasks);
+  };
+
   return (
-    <div className="mx-auto" style={{ maxWidth: "40rem" }}>
+    <div className="App mx-auto" style={{ maxWidth: "40rem" }}>
       <input
+        type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyUp={handleKeyUp}
         placeholder="What needs to be done?"
         className="form-control mb-3 fs-5 py-2"
       />
-      <ul className="list-group">
+
+      <ul id="taskdisplay" className="list-group">
         {tasks.length === 0 ? (
           <li className="list-group-item fs-5">No tasks, add a task</li>
         ) : (
-          tasks.map((t, index) => (
+          tasks.map((ele, index) => (
             <li
               key={index}
               className="list-group-item d-flex justify-content-between fs-5"
             >
-              {t.label}
-              <span className="badge bg-secondary">
-                {t.done ? "done" : "not done"}
-              </span>
+              {ele.label}
+              <button
+                onClick={() => deleteTask(index)}
+                className="btn btn-primary btn-sm"
+              >
+                X
+              </button>
             </li>
           ))
         )}
@@ -42,3 +60,17 @@ const Todos = () => {
 };
 
 export default Todos;
+
+
+/*
+ const deleteTask = (indexToDelete) => {
+    setTasks(tasks.filter((_, index) => index !== indexToDelete));
+  };
+
+  const deleteTask = (indexToDelete) => {
+    let result = tasks.map((elem, index) => {
+      if (index == 0)
+    }
+      
+  
+  */
