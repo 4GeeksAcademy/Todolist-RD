@@ -4,9 +4,18 @@ const Todos = () => {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
 
-  const handleKeyUp = (e) => { 
-    if (e.key === "Enter" && input.trim() !== "") {
-      setTasks([...tasks, { label: input.trim() }]);
+   const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      if (input.trim() === "") {
+        alert("The input cannot be empty");
+        return;
+      }
+
+      // Add the new task to the tasks array
+      const newTask = { label: input.trim() };
+      setTasks([...tasks, newTask]);
+
+      // Clear the input box
       setInput("");
     }
   };
@@ -60,17 +69,3 @@ const Todos = () => {
 };
 
 export default Todos;
-
-
-/*
- const deleteTask = (indexToDelete) => {
-    setTasks(tasks.filter((_, index) => index !== indexToDelete));
-  };
-
-  const deleteTask = (indexToDelete) => {
-    let result = tasks.map((elem, index) => {
-      if (index == 0)
-    }
-      
-  
-  */
